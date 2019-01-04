@@ -1,3 +1,4 @@
+import { AdminAuthGuard } from "./services/admin-auth-guard.service";
 import { LoginRedirectAuthGuard } from './services/login-redirect-auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
@@ -21,6 +22,7 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -60,10 +62,14 @@ import { NotFoundComponent } from './not-found/not-found.component';
         path: 'shopping-cart', component: ShoppingCartComponent
       },
       {
-        path: 'admin/products', component: AdminProductsComponent
+        path: 'admin/products', 
+        component: AdminProductsComponent, 
+        canActivate:[AuthGuard, AdminAuthGuard]
       },
       {
-        path: 'admin/orders', component: AdminOrdersComponent
+        path: 'admin/orders', 
+        component: AdminOrdersComponent,
+        canActivate:[AuthGuard, AdminAuthGuard]
       },
       {
         path: 'login', component: LoginComponent, canActivate: [LoginRedirectAuthGuard]
@@ -76,7 +82,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
   providers: [
     AuthService,
     AuthGuard,
-    LoginRedirectAuthGuard
+    LoginRedirectAuthGuard,
+    UserService,
+    AdminAuthGuard
   ],
   bootstrap: [AppComponent]
 })
