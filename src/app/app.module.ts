@@ -1,4 +1,4 @@
-import { LoginAuthGuard } from './services/login-auth.service';
+import { LoginRedirectAuthGuard } from './services/login-redirect-auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -66,7 +66,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
         path: 'admin/orders', component: AdminOrdersComponent
       },
       {
-        path: 'login', component: LoginComponent, canActivate: [LoginAuthGuard]
+        path: 'login', component: LoginComponent, canActivate: [LoginRedirectAuthGuard]
       },
       {
         path: "**", component: NotFoundComponent
@@ -76,7 +76,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
   providers: [
     AuthService,
     AuthGuard,
-    LoginAuthGuard
+    LoginRedirectAuthGuard
   ],
   bootstrap: [AppComponent]
 })
