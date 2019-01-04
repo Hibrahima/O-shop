@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router/';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -10,11 +11,11 @@ import { map } from 'rxjs/operators';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authSerice: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
-  canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<boolean> {
     // returns true if the user is logged in
-    return this.authSerice.user$.pipe(map(user => {
+    return this.authService.user$.pipe(map(user => {
       // user is logged in, so return true
       if(user) return true;
 
