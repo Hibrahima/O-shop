@@ -1,4 +1,6 @@
-import { AuthService } from './auth.service';
+import { LoginAuthGuard } from './services/login-auth.service';
+import { AuthGuard } from './services/auth-guard.service';
+import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
@@ -49,10 +51,10 @@ import { NotFoundComponent } from './not-found/not-found.component';
         path: 'products', component: ProductsComponent
       },
       {
-        path: 'checkout', component: CheckoutComponent
+        path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard]
       },
       {
-        path: 'orders', component: UserOrdersComponent
+        path: 'orders', component: UserOrdersComponent, canActivate: [AuthGuard]
       },
       {
         path: 'shopping-cart', component: ShoppingCartComponent
@@ -64,7 +66,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
         path: 'admin/orders', component: AdminOrdersComponent
       },
       {
-        path: 'login', component: LoginComponent
+        path: 'login', component: LoginComponent, canActivate: [LoginAuthGuard]
       },
       {
         path: "**", component: NotFoundComponent
@@ -72,7 +74,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
   ])
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuard,
+    LoginAuthGuard
   ],
   bootstrap: [AppComponent]
 })
