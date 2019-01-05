@@ -8,16 +8,15 @@ import { map } from 'rxjs/operators';
 })
 export class CategoryService {
   
-  itemsRef: AngularFireList<any>;
-  items: Observable<any[]>;
+  categoriesRef: AngularFireList<any>;
   dbNodeName: string = "/categories";
 
   constructor(db: AngularFireDatabase) {
-    this.itemsRef = db.list(this.dbNodeName);
+    this.categoriesRef = db.list(this.dbNodeName);
    }
 
   getAll(): Observable<any[]> {
-    return this.itemsRef.snapshotChanges().pipe(
+    return this.categoriesRef.snapshotChanges().pipe(
       map(changes => 
         changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       )
