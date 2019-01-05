@@ -70,13 +70,18 @@ import { CustomFormsModule } from 'ng2-validation';
         path: 'shopping-cart', component: ShoppingCartComponent
       },
       {
-        path: 'admin/products', 
-        component: AdminProductsComponent, 
+        path: 'admin/products/create', 
+        component: ProductFormComponent, 
         canActivate:[AuthGuard, AdminAuthGuard]
       },
       {
-        path: 'admin/products/create', 
+        path: 'admin/products/:id', 
         component: ProductFormComponent, 
+        canActivate:[AuthGuard, AdminAuthGuard]
+      },
+      {
+        path: 'admin/products', 
+        component: AdminProductsComponent, 
         canActivate:[AuthGuard, AdminAuthGuard]
       },
       {
