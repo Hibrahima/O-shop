@@ -1,3 +1,4 @@
+import { Product } from './../../models/product';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
@@ -10,13 +11,19 @@ import { Subscription } from 'rxjs';
 })
 export class AdminProductsComponent implements OnInit, OnDestroy {
 
-  filteredProducts: any[];
-  products: {name: string}[];
+  filteredProducts: Product[] = [];
+  products: Product[] = [];
   subscription: Subscription;
+  actualPage: number = 1;
+  numberPerPage: number = 2;
+  maxNumberPerPage: number;
 
   constructor(private productService: ProductService, private router: Router) { 
     this.subscription = productService.getAll()
-    .subscribe(products => this.filteredProducts = this.products = products);
+    .subscribe(products => {
+      this.filteredProducts = this.products = products;
+      this.maxNumberPerPage = this.filteredProducts.length;
+    });
   }
 
   ngOnInit() {
