@@ -17,10 +17,11 @@ export class ProductFormComponent implements OnInit {
   productId;
 
   constructor(
+    route: ActivatedRoute,
     categoryService: CategoryService, 
     private productService: ProductService,
-    private router: Router,
-    private route: ActivatedRoute) { 
+    private router: Router
+    ) { 
     this.categories$ = categoryService.getAll();
     
     // gets the id query param from the activated route
@@ -43,7 +44,8 @@ export class ProductFormComponent implements OnInit {
     if(this.productId)
       this.productService.update(this.productId, product);
     else
-      this.productService.create(product);
+        this.productService.create(product);
+      
     this.router.navigateByUrl('/admin/products');
   }
 
