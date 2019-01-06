@@ -46,8 +46,10 @@ export class ShoppingCartService {
     let productRef: AngularFireObject<any> = this.getItem(cartId, product.key);
     let item$ = productRef.valueChanges();
     item$.pipe(take(1)).subscribe(item => {
-      if(item) productRef.update({quantity: item.quantity + 1 });
-      else productRef.set({product: product, quantity: 1});
+      // persists a new object which contains a product and
+      // sets its quantity to (0 + 1 = 1) if the product is not in any shopping cart
+      // or sets its quantity to the quantity value stored in the database plus 1
+      productRef.update({product: product, quantity: ( item.quantity || 0) + 1 });
     })
   }
 }
