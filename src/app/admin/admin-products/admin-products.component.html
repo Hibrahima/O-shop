@@ -16,7 +16,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let p of filteredProducts">
+    <tr *ngFor="let p of filteredProducts | 
+        paginate: { itemsPerPage: numberPerPage, currentPage: actualPage } ">
       <td> <img *ngIf="p.imageUrl" [src]="p.imageUrl" style="width: 3rem;" alt="no image yet"></td>
       <td> {{ p.name }} </td>
       <td> {{ p.price }} </td>
@@ -27,3 +28,14 @@
     </tr> 
   </tbody>
 </table>
+
+<div *ngIf="filteredProducts?.length > 0">
+    <div class="row"> 
+      <div class="col-md-2">
+          <input min="0" [max]="maxNumberPerPage" [(ngModel)]="numberPerPage" type="number" class="form-control" placeholder="limit per page">
+      </div>
+      <div class="col-md-9">
+          <pagination-controls (pageChange)="actualPage = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
