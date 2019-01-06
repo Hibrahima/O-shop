@@ -28,6 +28,9 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
 import { ProductService } from './services/product.service';
 import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ng2-validation';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -43,19 +46,22 @@ import { CustomFormsModule } from 'ng2-validation';
     AdminOrdersComponent,
     LoginComponent,
     NotFoundComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductFilterComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     CustomFormsModule,
+    NgxPaginationModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
       {
-        path: '', component: HomeComponent
+        path: '', component: ProductsComponent
       },
       {
         path: 'products', component: ProductsComponent
