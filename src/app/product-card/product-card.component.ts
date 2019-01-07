@@ -24,7 +24,7 @@ export class ProductCardComponent implements OnInit {
   }
 
   decrementQuantity(){
-    this.cartSerice.decrementItemQuantity(this.product);
+    this.cartSerice.removeFromCart(this.product);
   }
 
   getQuantity(){
