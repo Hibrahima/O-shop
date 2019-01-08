@@ -1,3 +1,4 @@
+import { Product } from './product';
 import { ShoppingCartIem } from './shopping-cart-item';
 
 export class ShoppingCart{
@@ -31,5 +32,13 @@ export class ShoppingCart{
             count += this.items[productKey].quantity;
 
       return count;
+    }
+
+    getQuantity(product: Product){
+  
+      // gets the current product object in the shopping cart if any
+      // returns the quanttity of that product if any or 0
+      let item = this.items[product.key];
+      return item ? item.quantity : 0;
     }
 }
