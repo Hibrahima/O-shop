@@ -12,7 +12,7 @@ export class ProductCardComponent implements OnInit {
   @Input('product') product: Product;
   @Input('show-actions') showActions = true;
   @Input('card-width') cardWidth; // TO DO
-  @Input('shopping-cart') shoppingCart
+  @Input('shopping-cart') shoppingCart;
 
   constructor(private cartSerice: ShoppingCartService) { }
 
@@ -23,17 +23,4 @@ export class ProductCardComponent implements OnInit {
     this.cartSerice.addToCart(this.product);
   }
 
-  decrementQuantity(){
-    this.cartSerice.removeFromCart(this.product);
-  }
-
-  getQuantity(){
-    // returns 0 if there is no  a shopping cart yet
-    if(!this.shoppingCart) return 0;
-
-    // gets the current product object in the shopping cart if any
-    // returns the quanttity of that product if any or 0
-    let item = this.shoppingCart.items[this.product.key];
-    return item ? item.quantity : 0;
-  }
 }
